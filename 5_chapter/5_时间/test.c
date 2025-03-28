@@ -12,10 +12,10 @@
 #include <utime.h>
 #include <time.h>
 
-#define UTIME 0
+#define UTIME 1
 #define UTIMES 0
 #define FUTIMENS 0
-#define UTIMENSAT 1
+#define UTIMENSAT 0
 
 #ifndef __USE_ATFILE
 #define __USE_ATFILE
