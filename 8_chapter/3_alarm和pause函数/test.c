@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
     second = atoi(argv[1]);
     alarm(second);
     printf("定时时长 %d\r\n", second);
+    // alarm值为0，则代表取消之前设置的alarm闹钟。
+    // alarm(0);
 
 #if PAUSE
 
