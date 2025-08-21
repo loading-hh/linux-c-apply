@@ -5,6 +5,9 @@
 #include <pthread.h>
 #include <sys/types.h>
 
+#define LOCK 0
+#define TRY_LOCK 1
+
 pthread_mutex_t mutex;
 int num = 0, loop = 100000;
 void *new_pthread(void *arg);
@@ -52,6 +55,7 @@ int main(void)
         exit(-1);
     }
 
+    pthread_mutex_destroy(&mutex);
     printf("%d\r\n", num);
     pthread_exit(NULL);
 }
@@ -62,9 +66,18 @@ void *new_pthread(void *arg)
     int all_loop = *(int *)arg;
     for (int i = 0; i < all_loop; i++)
     {
+#if LOCK
         pthread_mutex_lock(&mutex);
         num++;
         pthread_mutex_unlock(&mutex);
+#endif
+
+#if TRY_LOCK
+        while (pthread_mutex_trylock(&mutex))
+            ;
+        num++;
+        pthread_mutex_unlock(&mutex);
+#endif // DEBUG
     }
     pthread_exit((void *)0);
 }
