@@ -5,6 +5,7 @@
 #define PWR_LDE_PATH "/home/jetson/sys/class/leds/pwr/brightness"
 int main(void)
 {
+    int i = 3;
     FILE *pwr_fd;
 
     printf("This is the led demo\r\n");
@@ -15,7 +16,7 @@ int main(void)
         return -1;
     }
 
-    while (1)
+    while (i--)
     {
         // 电源灯亮
         fwrite("1", 1, 1, pwr_fd);
