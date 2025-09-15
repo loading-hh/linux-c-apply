@@ -10,7 +10,7 @@
 int main(void)
 {
     int re = 0;
-    char input[10] = {'/0'};
+    char input[10] = "/0";
 
     re = gpio_init();
     if (re < 0)
