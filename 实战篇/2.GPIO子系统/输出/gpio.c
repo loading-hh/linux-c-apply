@@ -24,7 +24,7 @@ int gpio_init(void)
     if (fd < 0)
         return -2;
 
-    write(fd, "in", strlen("in"));
+    write(fd, "out", strlen("out"));
     close(fd);
 
     return 0;
@@ -44,15 +44,34 @@ int gpio_deinit(void)
     return 0;
 }
 
-int value_fd = 0;
-int gpio_input(void)
+int gpio_low(void)
 {
-    char gpio_path[100] = "/0";
+    int fd = 0;
+    char gpio_path[100] = "\0";
 
     sprintf(gpio_path, "/sys/class/gpio/gpio%s/value", GPIO_INDEX);
-    value_fd = open(gpio_path, O_RDONLY);
-    if (value_fd < 0)
+    fd = open(gpio_path, O_WRONLY);
+    if (fd < 0)
         return -1;
+
+    write(fd, "0", strlen("0"));
+    close(fd);
+
+    return 0;
+}
+
+int gpio_high(void)
+{
+    int fd = 0;
+    char gpio_path[100] = "\0";
+
+    sprintf(gpio_path, "/sys/class/gpio/gpio%s/value", GPIO_INDEX);
+    fd = open(gpio_path, O_WRONLY);
+    if (fd < 0)
+        return -1;
+
+    write(fd, "1", strlen("1"));
+    close(fd);
 
     return 0;
 }

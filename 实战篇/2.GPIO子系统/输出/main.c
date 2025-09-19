@@ -7,24 +7,15 @@
 #include <fcntl.h>
 #include "gpio.h"
 
-extern int value_fd;
 int main(void)
 {
     int re = 0;
     char input[10] = "/0";
-    char input_value = '/0';
 
     re = gpio_init();
     if (re < 0)
     {
         printf("gpio init error num is %d", re);
-        return -1;
-    }
-
-    re = gpio_input();
-    if (re < 0)
-    {
-        printf("gpio input error num is %d", re);
         return -1;
     }
 
@@ -34,18 +25,25 @@ int main(void)
 
         switch (input[0])
         {
-        case 'r':
-            re = read(value_fd, input_value, 1);
+        case '0':
+            re = gpio_low();
             if (re < 0)
             {
-                printf("gpio read error\r\n");
+                printf("gpio low error num is %d", re);
                 return -1;
             }
-            printf("input value is %c\r\n", input_value);
+            break;
+
+        case '1':
+            re = gpio_high();
+            if (re < 0)
+            {
+                printf("gpio high error num is %d", re);
+                return -1;
+            }
             break;
 
         case 'q':
-            close(value_fd);
             re = gpio_deinit();
             if (re < 0)
             {
@@ -55,7 +53,6 @@ int main(void)
             return 0;
 
         default:
-            close(value_fd);
             re = gpio_deinit();
             if (re < 0)
             {

@@ -4,6 +4,7 @@
 #define GPIO_INDEX "216"
 int gpio_init(void);
 int gpio_deinit(void);
-int gpio_input(void);
+int gpio_low(void);
+int gpio_high(void);
 
 #endif
