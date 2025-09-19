@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16.3)
+project(test)
+set(EXECUTABLE_OUTPUT_PATH /home/loading/linux-c-apply/实战篇/2.GPIO子系统/输入)
+file(GLOB SRC /home/loading/linux-c-apply/实战篇/2.GPIO子系统/输入/*.c)
+include_directories(/home/loading/linux-c-apply/实战篇/2.GPIO子系统/输入)
+add_executable(main ${SRC})
