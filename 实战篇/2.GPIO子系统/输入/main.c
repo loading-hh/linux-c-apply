@@ -42,6 +42,15 @@ int main(void)
                 return -1;
             }
             printf("input value is %c\r\n", input_value);
+
+            // 移动文件位置偏移量
+            re = lseek(value_fd, 0, SEEK_SET);
+            if (re < 0)
+            {
+                printf("lseek error\r\n");
+                return -1;
+            }
+            printf("input value is %c\r\n", input_value);
             break;
 
         case 'q':
